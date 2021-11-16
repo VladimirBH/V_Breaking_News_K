@@ -2,35 +2,19 @@ package com.example.breakingnews;
 
 import static android.content.ContentValues.TAG;
 
-import androidx.annotation.NonNull;
+import android.os.Bundle;
+import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.os.Bundle;
-import android.util.Log;
-import android.webkit.WebView;
-import android.widget.TextView;
-
-/*import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;*/
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -48,8 +32,7 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //db = FirebaseDatabase.getInstance().getReference("/news");
-
+       //db = FirebaseDatabase.getInstance().getReference("/news");
 
 //        name = findViewById(R.id.name);
 //        description = findViewById(R.id.description);
@@ -66,14 +49,11 @@ public class MainActivity extends AppCompatActivity{
 
         getNews(db);
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                listNews.clear();
-                getNews(db);
-                recyclerViewNews.setAdapter(adapterNews);
-                swipeRefreshLayout.setRefreshing(false);
-            }
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            listNews.clear();
+            getNews(db);
+            recyclerViewNews.setAdapter(adapterNews);
+            swipeRefreshLayout.setRefreshing(false);
         });
 
 
