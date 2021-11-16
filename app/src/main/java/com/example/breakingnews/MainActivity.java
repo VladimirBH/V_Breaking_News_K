@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -63,62 +64,75 @@ public class MainActivity extends AppCompatActivity{
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                db.collection("news")
+//                        .get()
+//                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                                if (task.isSuccessful()) {
+//                                    for (QueryDocumentSnapshot document : task.getResult()) {
+//                                        listNews.add(new News(document.getId().toString(),
+//                                                document.get("description").toString(),
+//                                                document.get("name").toString(),
+//                                                document.get("photo").toString()));
+//                                        System.out.println(document.getId());
+//                                        System.out.println(document.get("description").toString());
+//                                        System.out.println(document.get("name").toString());
+//                                        System.out.println(document.get("photo").toString());
+//                                        System.out.println(listNews.size()+" ");
+//                                    }
+//                                    adapterNews = new Adapter(MainActivity.this, listNews);
+//                                    recyclerViewNews.setAdapter(adapterNews);
+//                                } else {
+//                                    Log.w(TAG, "Error getting documents.", task.getException());
+//                                }
+//                            }
+//                        });
+//            }
+//        });
+//
+//        // Add a new document with a generated ID
+//
+        getNews(db);
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                db.collection("news")
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        listNews.add(new News(document.getId().toString(),
-                                                document.get("description").toString(),
-                                                document.get("name").toString(),
-                                                document.get("photo").toString()));
-                                        System.out.println(document.getId());
-                                        System.out.println(document.get("description").toString());
-                                        System.out.println(document.get("name").toString());
-                                        System.out.println(document.get("photo").toString());
-                                        System.out.println(listNews.size()+" ");
-                                    }
-                                    adapterNews = new Adapter(MainActivity.this, listNews);
-                                    recyclerViewNews.setAdapter(adapterNews);
-                                } else {
-                                    Log.w(TAG, "Error getting documents.", task.getException());
-                                }
-                            }
-                        });
+                listNews.clear();
+                getNews(db);
+                recyclerViewNews.setAdapter(adapterNews);
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 
-        // Add a new document with a generated ID
 
+    }
 
-
-
+    void getNews(FirebaseFirestore db){
         db.collection("news")
+                .orderBy("name")
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                listNews.add(new News(document.getId().toString(),
-                                        document.get("description").toString(),
-                                        document.get("name").toString(),
-                                        document.get("photo").toString()));
-                                System.out.println(document.getId());
-                                System.out.println(document.get("description").toString());
-                                System.out.println(document.get("name").toString());
-                                System.out.println(document.get("photo").toString());
-                            }
-                            adapterNews = new Adapter(MainActivity.this, listNews);
-                            recyclerViewNews.setAdapter(adapterNews);
-                        } else {
-                            Log.w(TAG, "Error getting documents.", task.getException());
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            listNews.add(new News(document.getId().toString(),
+                                    document.get("description").toString(),
+                                    document.get("name").toString(),
+                                    document.get("photo").toString()));
+                            System.out.println(document.getId());
+                            System.out.println(document.get("description").toString());
+                            System.out.println(document.get("name").toString());
+                            System.out.println(document.get("photo").toString());
                         }
+                        System.out.println(listNews.size());
+
+                        adapterNews = new Adapter(MainActivity.this, listNews);
+                        recyclerViewNews.setAdapter(adapterNews);
+                    } else {
+                        Log.w(TAG, "Error getting documents.", task.getException());
                     }
                 });
     }
