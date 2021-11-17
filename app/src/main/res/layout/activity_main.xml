@@ -10,7 +10,7 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:padding="5dp"
+
         android:id="@+id/linLay"
         android:gravity="center"
         android:layout_width="match_parent"
@@ -23,17 +23,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textViewTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="@font/rubik"
-                android:text="Breaking News"
-                android:textAlignment="center"
-                android:textColor="#000000"
-                android:textSize="32sp" />
+                <TextView
+                    android:id="@+id/textViewTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/rubik"
+                    android:text="Breaking News"
+                    android:textAlignment="center"
+                    android:textColor="#000000"
+                    android:textSize="32sp" />
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -46,14 +48,15 @@
 
 
                 <EditText
-                    android:paddingStart="10dp"
                     android:id="@+id/editTextSearching"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:hint="Search..."
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:paddingStart="10dp"
+                    tools:ignore="TouchTargetSizeCheck" />
 
                 <ImageView
                     android:layout_marginEnd="10dp"

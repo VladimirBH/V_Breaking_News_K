@@ -2,13 +2,16 @@
 
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardTheNews"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="#26DB0F0F"
-    android:layout_marginBottom="10dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
+        android:layout_marginBottom="10dp"
         tools:ignore="MissingConstraints">
 
         <LinearLayout
@@ -18,10 +21,11 @@
             android:orientation="vertical"
             tools:ignore="WebViewLayout">
 
-            <WebView
-                android:id="@+id/webViewPhoto"
+            <ImageView
+                android:id="@+id/photo"
                 android:layout_width="match_parent"
-                android:layout_height="250dp" />
+                android:layout_height="250dp"
+                tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
                 android:id="@+id/textViewName"
@@ -33,6 +37,15 @@
                 android:text="TextView"
                 android:textColor="#000000"
                 android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/textViewDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/rubik"
+                android:text="TextView"
+                android:textAlignment="viewEnd"
+                android:textColor="#000000" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

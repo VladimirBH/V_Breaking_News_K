@@ -5,12 +5,14 @@ public class News {
     public String description;
     public String name;
     public String photo;
+    public String newsDate;
 
-    public News(String uid, String description, String name, String photo) {
+    public News(String uid, String description, String name, String photo, String newsDate) {
         this.uid = uid;
         this.description = description;
         this.name = name;
         this.photo = photo;
+        this.newsDate = newsDate;
     }
 
     public String getUid() {
@@ -43,5 +45,13 @@ public class News {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public String getNewsDate() {
+        return newsDate;
+    }
+
+    public void setNewsDate(String newsDate) {
+        this.newsDate = newsDate;
     }
 }
