@@ -17,12 +17,13 @@ import com.bumptech.glide.request.RequestOptions;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
 
 
-    private final List<News> newsList;
+    private List<News> newsList;
     Context context;
 
     Adapter(Context context, List<News> news) {
@@ -30,6 +31,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
         this.context = context;
 
     }
+
+    public void searchedList(ArrayList<News> searchedList){
+        newsList = searchedList;
+        notifyDataSetChanged();
+    }
+
     @Override
     public Adapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -44,8 +51,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
         holder.textViewDate.setText(news.getNewsDate());
         holder.cardTheNews.setOnClickListener(v -> {
             Intent intent = new Intent(context, theNews.class);
-            intent.putExtra("idNews", newsList.get(position).getUid());
+            intent.putExtra("name", newsList.get(position).getName());
+            intent.putExtra("description", newsList.get(position).getDescription());
+            intent.putExtra("photo", newsList.get(position).getPhoto());
+            intent.putExtra("date", newsList.get(position).getNewsDate());
             System.out.println(newsList.get(position).getUid());
+            this.context.startActivity(intent);
         });
         RequestOptions requestOptions = new RequestOptions();
         requestOptions = requestOptions.transform(new CenterCrop(), new RoundedCorners(10));

@@ -21,6 +21,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:orientation="vertical">
 
                 <TextView
@@ -71,15 +72,15 @@
 
         </LinearLayout>
     </LinearLayout>
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/upd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/upd"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -88,10 +89,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        </ScrollView>
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
 
 </LinearLayout>
