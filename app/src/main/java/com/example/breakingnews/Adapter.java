@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.CenterInside;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.load.resource.bitmap.FitCenter;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -59,7 +62,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
             this.context.startActivity(intent);
         });
         RequestOptions requestOptions = new RequestOptions();
-        requestOptions = requestOptions.transform(new CenterCrop(), new RoundedCorners(10));
+        requestOptions = requestOptions.transform(new FitCenter(), new RoundedCorners(10));
         Glide.with(this.context).load(newsList.get(position).getPhoto()).apply(requestOptions).into(holder.photoView);
     }
 

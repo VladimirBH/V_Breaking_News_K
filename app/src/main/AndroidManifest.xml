@@ -10,9 +10,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.BreakingNews">
+        android:theme="@style/CustomTheme">
         <activity
             android:name=".MainActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:screenOrientation="fullSensor"
             android:exported="true">
             <intent-filter >
                 <action android:name="android.intent.action.MAIN"/>
@@ -21,7 +23,9 @@
 
         </activity>
         <activity android:name=".theNews"
-            android:exported="true">
+            android:exported="true"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:screenOrientation="fullSensor">
 
 
         </activity>

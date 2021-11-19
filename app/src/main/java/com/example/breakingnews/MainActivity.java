@@ -3,15 +3,20 @@ package com.example.breakingnews;
 import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -36,6 +41,20 @@ public class MainActivity extends AppCompatActivity{
     private List<News> listNews;
     private EditText editTextSearching;
     private SwipeRefreshLayout swipeRefreshLayout;
+
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        newsConfig(newConfig);
+
+//        if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
+//
+//        }
+
+        System.out.println("dsfs");
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,12 +64,18 @@ public class MainActivity extends AppCompatActivity{
 //        name = findViewById(R.id.name);
 //        description = findViewById(R.id.description);
 //        photo = findViewById(R.id.photo);
+
         editTextSearching = findViewById(R.id.editTextSearching);
         swipeRefreshLayout = findViewById(R.id.upd);
         recyclerViewNews = findViewById(R.id.recyclerNews);
         recyclerViewNews.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerViewNews.setLayoutManager(layoutManager);
+//        layoutManager = new LinearLayoutManager(this);
+//       recyclerViewNews.setLayoutManager(layoutManager);
+
+        Configuration configuration = this.getResources().getConfiguration();
+        newsConfig(configuration);
+
+
         listNews = new ArrayList<>();
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -120,4 +145,24 @@ public class MainActivity extends AppCompatActivity{
                     }
                 });
     }
+
+    void newsConfig(Configuration newConfig)
+    {
+        if(newConfig.smallestScreenWidthDp >= 600){
+            recyclerViewNews.setLayoutManager(new GridLayoutManager(MainActivity.this,2));
+
+        }
+        if(newConfig.smallestScreenWidthDp<= 600){
+            recyclerViewNews.setLayoutManager(new GridLayoutManager(MainActivity.this,1));
+        }
+        if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE && newConfig.smallestScreenWidthDp >= 600){
+            recyclerViewNews.setLayoutManager(new GridLayoutManager(MainActivity.this,3));
+
+        }
+
+        if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE && newConfig.smallestScreenWidthDp<=600){
+            recyclerViewNews.setLayoutManager(new GridLayoutManager(MainActivity.this,2));
+        }
+    }
+
 }
